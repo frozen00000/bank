@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.frozen.bank.repository.UpdateOfMissingEntityException;
 import com.frozen.bank.service.EntityNotFoundException;
+import com.frozen.bank.service.InvalidTransactionException;
 import com.frozen.bank.service.NotEnoughMoneyException;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -125,11 +126,14 @@ public abstract class AbstractRESTHandler<T> implements HttpHandler {
      */
     private void writeResponse(HttpExchange exchange, Exception exception) throws IOException {
         int code = INTERNAL_SERVER_ERROR;
-        if (exception instanceof EntityNotFoundException || exception instanceof UpdateOfMissingEntityException) {
+        if (exception instanceof EntityNotFoundException
+                || exception instanceof UpdateOfMissingEntityException) {
             code = NOT_FOUND;
         } else if (exception instanceof NotEnoughMoneyException) {
             code = NOT_ACCEPTABLE;
-        } else if (exception instanceof MismatchedInputException || exception instanceof JsonParseException) {
+        } else if (exception instanceof MismatchedInputException
+                || exception instanceof JsonParseException
+                || exception instanceof InvalidTransactionException) {
             code = BAD_REQUEST;
         }
         writeResponse(exchange, exception.getMessage(), code);

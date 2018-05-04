@@ -33,6 +33,9 @@ public class TransactionServiceImpl implements TransactionService {
      * @return list of updates.
      */
     private List<Update<Account>> createUpdates(UUID sourceId, UUID targetId, BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new InvalidTransactionException("Amount of money should be greater than zero.");
+        }
         return Arrays.asList(
                 new Update<>(sourceId, a -> {
                     if (a.getBalance().compareTo(amount) < 0) {

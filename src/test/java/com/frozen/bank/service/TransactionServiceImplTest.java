@@ -74,6 +74,11 @@ public class TransactionServiceImplTest {
         verify(accountService).update(argThat(this::verifyUpdates));
     }
 
+    @Test(expected = InvalidTransactionException.class)
+    public void transactionWithNegativeAmountShouldFail() {
+        assertEquals(ID, transactionService.create(SOURCE_ID, TARGET_ID, BigDecimal.ONE.negate()));
+    }
+
     @Test(expected = EntityNotFoundException.class)
     public void getByFakeId() {
         transactionService.getById(ID);
