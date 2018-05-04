@@ -6,6 +6,7 @@ import com.frozen.bank.repository.Repository;
 import com.frozen.bank.repository.Update;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -15,6 +16,7 @@ import java.util.UUID;
 /**
  * Implementation of Transaction service.
  */
+@Service
 @RequiredArgsConstructor
 @Slf4j
 public class TransactionServiceImpl implements TransactionService {

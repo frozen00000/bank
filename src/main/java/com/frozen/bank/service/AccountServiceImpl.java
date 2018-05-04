@@ -5,6 +5,7 @@ import com.frozen.bank.repository.UpdatableRepository;
 import com.frozen.bank.repository.Update;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.UUID;
  */
 @RequiredArgsConstructor
 @Slf4j
+@Service
 public class AccountServiceImpl implements AccountService {
 
     private final UpdatableRepository<Account> repository;
