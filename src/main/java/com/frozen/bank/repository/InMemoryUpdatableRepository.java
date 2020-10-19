@@ -16,7 +16,7 @@ public class InMemoryUpdatableRepository<T extends HasId<UUID>> extends InMemory
      * @param updates list of updates to perform.
      */
     @Override
-    public void update(List<Update<T>> updates) {
+    public synchronized void update(List<Update<T>> updates) {
         updates.forEach(u -> map.compute(u.getId(), (k, v) -> {
             if (v == null) {
                 throw new UpdateOfMissingEntityException("Cannot update missing entity with id: " + k);
